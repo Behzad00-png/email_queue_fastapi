@@ -1,0 +1,15 @@
+from fastapi import FastAPI, BackgroundTasks, Request
+from pydantic import BaseModel
+from tasks import send_email_task
+
+app = FastAPI()
+
+class EmailSchema(BaseModel):
+    email: str
+    subject: str
+    body: str
+
+@app.post("/send-email/")
+def send_email(email: EmailSchema):
+    send_email_task.delay(email.dict())
+    return {"message": "Email is being sent."}
