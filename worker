@@ -1,0 +1,4 @@
+from tasks import app
+
+# To run the Celery worker, use the following command:
+# celery -A worker.app worker --loglevel=info
