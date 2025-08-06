@@ -1,0 +1,12 @@
+from celery import Celery
+import time
+
+app = Celery('tasks', broker='redis://redis:6379/0')
+
+@app.task
+def send_email_task(email_data):
+    print(f"Sending email to {email_data['email']}...")
+    print(f"Subject: {email_data['subject']}")
+    print(f"Body: {email_data['body']}")
+    time.sleep(2)
+    print("Email sent.")
